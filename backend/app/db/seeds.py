@@ -197,17 +197,15 @@ def main():
     # insert_user('test user', 'testuser@anythink.com', 'test bio', 'https://placedog.net/109', 'salt')
     # insert_comment('test comment', 1, 2)
 
-    # users = generate_users(100)
-    # insert_users(users)
+    users = generate_users(100)
+    insert_users(users)
 
-    # items = generate_items(100)
-    # insert_items(items)
+    items = generate_items(100)
+    insert_items(items)
 
-    # min_item_id = get_item_min_id()
-    # comments = generate_comments(min_item_id, 100)
-    # insert_comments(comments)
-
-    print(os.environ['DATABASE_URL'])
+    min_item_id = get_item_min_id()
+    comments = generate_comments(min_item_id, 100)
+    insert_comments(comments)
 
 if __name__ == "__main__":
     main()
