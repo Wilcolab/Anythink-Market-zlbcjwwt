@@ -143,7 +143,7 @@ def get_objects(table_name, connection=None, cursor=None):
 
 @db_connection
 def get_item_min_id(connection=None, cursor=None):
-        # Execute the SELECT query
+    # Execute the SELECT query
     query = "SELECT MIN(id) FROM items;"
     cursor.execute(query)
 
@@ -176,8 +176,7 @@ def generate_users(n):
         ))
     return users
 
-def generate_comments(n):
-    min_id = get_item_min_id()
+def generate_comments(min_id, n):
     comments = [(
     f'this is a test comment no. {i}',  # body
     i,  # seller_id
@@ -191,10 +190,13 @@ def main():
     # insert_comment('test comment', 1, 2)
 
     users = generate_users(100)
-    items = generate_items(100)
-    comments = generate_comments(100)
     insert_users(users)
+
+    items = generate_items(100)
     insert_items(items)
+
+    min_item_id = get_item_min_id()
+    comments = generate_comments(min_item_id, 100)
     insert_comments(comments)
 
 if __name__ == "__main__":
