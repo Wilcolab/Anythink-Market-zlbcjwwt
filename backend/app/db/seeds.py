@@ -22,6 +22,7 @@ def db_connection(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
         connection = None
+        cursor = None
         try:
             # Establish connection
             connection = psycopg2.connect(**DB_PARAMS)
