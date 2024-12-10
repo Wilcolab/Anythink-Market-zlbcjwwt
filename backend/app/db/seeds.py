@@ -1,9 +1,11 @@
 print('Please fill the seeds file')
 
+import os
 import psycopg2
 from functools import wraps
 from faker import Faker
 from random import randint
+from sqlalchemy import create_engine
 # from app.db.models.domain.items import Item
 # from app.db.models.domain.comments import Comment
 # from app.db.models.domain.users import User
@@ -24,9 +26,14 @@ def db_connection(func):
         connection = None
         cursor = None
         try:
+            database_url = os.environ['DATABASE_URL'].replace("postgres://", "postgresql://")
+            engine = create_engine(database_url, echo=False)
+            
             # Establish connection
-            connection = psycopg2.connect(**DB_PARAMS)
+            connection = engine.connect(**DB_PARAMS)
             cursor = connection.cursor()
+            # connection = psycopg2.connect(**DB_PARAMS)
+            # cursor = connection.cursor()
             
             # Pass connection and cursor to the wrapped function
             result = func(*args, connection=connection, cursor=cursor, **kwargs)
@@ -190,15 +197,17 @@ def main():
     # insert_user('test user', 'testuser@anythink.com', 'test bio', 'https://placedog.net/109', 'salt')
     # insert_comment('test comment', 1, 2)
 
-    users = generate_users(100)
-    insert_users(users)
+    # users = generate_users(100)
+    # insert_users(users)
 
-    items = generate_items(100)
-    insert_items(items)
+    # items = generate_items(100)
+    # insert_items(items)
 
-    min_item_id = get_item_min_id()
-    comments = generate_comments(min_item_id, 100)
-    insert_comments(comments)
+    # min_item_id = get_item_min_id()
+    # comments = generate_comments(min_item_id, 100)
+    # insert_comments(comments)
+
+    print(os.environ['DATABASE_URL'])
 
 if __name__ == "__main__":
     main()
