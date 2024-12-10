@@ -30,7 +30,7 @@ def db_connection(func):
             engine = create_engine(database_url, echo=False)
             
             # Establish connection
-            connection = engine.connect(**DB_PARAMS)
+            connection = engine.connect()
             cursor = connection.cursor()
             # connection = psycopg2.connect(**DB_PARAMS)
             # cursor = connection.cursor()
