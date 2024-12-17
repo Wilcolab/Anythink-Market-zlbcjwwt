@@ -26,13 +26,13 @@ def db_connection(func):
         connection = None
         cursor = None
         try:
-            # database_url = os.environ['DATABASE_URL'].replace("postgres://", "postgresql://")
+            database_url = os.environ['DATABASE_URL'].replace("postgres://", "postgresql://")
             # engine = create_engine(database_url, echo=False)
             
             # Establish connection
             # connection = engine.connect()
             # cursor = connection.cursor()
-            connection = psycopg2.connect(**DB_PARAMS)
+            connection = psycopg2.connect(database_url)
             cursor = connection.cursor()
             
             # Pass connection and cursor to the wrapped function
