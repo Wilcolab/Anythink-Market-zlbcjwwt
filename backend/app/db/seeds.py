@@ -14,7 +14,7 @@ from sqlalchemy import create_engine
 DB_PARAMS = {
     'dbname': 'anythink-market',
     'user': 'postgres',
-    'password': 'your_password',
+    'password': '',
     'host': 'postgres-python',  # or the hostname/IP of your database server
     'port': 5432          # default PostgreSQL port
 }
