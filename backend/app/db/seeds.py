@@ -5,19 +5,8 @@ import psycopg2
 from functools import wraps
 from faker import Faker
 from random import randint
-from sqlalchemy import create_engine
-# from app.db.models.domain.items import Item
-# from app.db.models.domain.comments import Comment
-# from app.db.models.domain.users import User
 
-# Database connection parameters
-DB_PARAMS = {
-    'dbname': 'anythink-market',
-    'user': 'postgres',
-    'password': '',
-    'host': 'postgres-python',  # or the hostname/IP of your database server
-    'port': 5432          # default PostgreSQL port
-}
+database_url = os.environ['DATABASE_URL'].replace("postgres://", "postgresql://")
 
 def db_connection(func):
     """Decorator for managing a database connection."""
@@ -26,12 +15,7 @@ def db_connection(func):
         connection = None
         cursor = None
         try:
-            database_url = os.environ['DATABASE_URL'].replace("postgres://", "postgresql://")
-            # engine = create_engine(database_url, echo=False)
-            
             # Establish connection
-            # connection = engine.connect()
-            # cursor = connection.cursor()
             connection = psycopg2.connect(database_url)
             cursor = connection.cursor()
             
